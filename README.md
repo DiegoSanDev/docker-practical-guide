@@ -78,6 +78,11 @@ Docker é uma plataforma de containerização que permite empacotar uma aplicaç
 3. Versionar imagens
 4. Evitar rodar como root
 
+### Aplicações de exemplo:
+
+1. [status-api](https://github.com/DiegoSanDev/docker-practical-guide/tree/main/examples/status-api) 
+    1. API de status em Spring Boot para demonstrar conceitos básicos de Docker.
+
 ## Referências
 [dockerdocs](https://docs.docker.com/get-started/docker-overview/)
 
