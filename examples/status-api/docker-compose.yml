@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  status-api:
+    image: status-api:1.0.0
+    container_name: status-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
