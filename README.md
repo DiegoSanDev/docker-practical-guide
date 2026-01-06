@@ -78,3 +78,6 @@ Docker é uma plataforma de containerização que permite empacotar uma aplicaç
 3. Versionar imagens
 4. Evitar rodar como root
 
+## Referências
+[dockerdocs](https://docs.docker.com/get-started/docker-overview/)
+
