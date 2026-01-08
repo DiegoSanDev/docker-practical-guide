@@ -1,6 +1,10 @@
 ## Introdução ao Docker
 Docker é uma plataforma de containerização que permite empacotar uma aplicação com todas as suas dependências(código, runtime, bibliotecas e configurações) em um container leve e portátil, garantindo que ela rode da mesma forma em qualquer ambiente (dev, teste, ou produção)
 
+- É uma plataforma aberta que permite desenvolver, empacotar, distribuir e executar aplicações.
+- Desacopla a aplicação da infraestrutura, facilitando a portabilidade entre ambientes.
+- Diminui significativamente o tempo entre a escrita do código e sua execução em produção.
+
 ## Conceitos Essencias
 1. **Imagem**
     1. Modelo imutável que contém tudo o que a aplicação precisa para rodar.
@@ -21,49 +25,78 @@ Docker é uma plataforma de containerização que permite empacotar uma aplicaç
     4. Utilizar em ambientes de desenvolvimento e teste
 
 ## Comandos Principais
-| Comando                                | Descrição                                                                 |
-| ---------------------------------------|---------------------------------------------------------------------------|
-| docker --version                       | verifica a versão                                                         |
-| docker info                            | informações do ambiente Docker                                            |
-| docker help                            | lista de comandos                                                         |
-| docker images                          | lista imagens locais                                                      |
-| docker pull <imagem>                   | baixa imagem do registry                                                  |
-| docker build -t nome:tag .             | cria imagem a partir do Dockerfile. Ex.: docker build -t minha-api:1.0.0  |
-| docker rmi <imagem>                    | remove imagem                                                             |
-| docker ps                              | Exibe os containers em execução                                           |
-| docker ps -a                           | Exibe todos os containers                                                 |
-| docker run <imagem>                    | cria e executa container                                                  |
-| docker start <container>               | inicia container                                                          |
-| docker stop <container>                | para container                                                            |
-| docker restart <container>             | reinicia container                                                        |
-| docker rm <container>                  | remove container                                                          |
-| docker logs <container>                | exibe logs                                                                |
-| docker exec -it <container> bash       | entra no container                                                        |
-| docker inspect <container>             | detalhes do container                                                     |
-| docker run -p 8080:8080 <imagem>       | mapeia portas                                                             |
-| docker network ls                      | lista redes                                                               |
-| docker network create <nome>           | cria rede                                                                 |
-| docker volume ls                       | lista volumes                                                             |
-| docker volume create <nome>            | cria volume                                                               |
-| docker run -v volume:/caminho <imagem> | usa volume                                                                |
-| docker system prune                    | informações do ambiente Docker                                            |
-| docker container prune                 | remove containers parados                                                 |
-| docker image prune                     | remove imagens não usadas                                                 |
-| docker compose up                      | sobe os serviços                                                          |
-| docker compose up -d                   | sobe em background                                                        |
-| docker compose down                    | para e remove os serviços                                                 |
-| docker compose start                   | inicia serviços parados                                                   |
-| docker compose stop                    | para os serviços                                                          |
-| docker compose restart                 | reinicia os serviços                                                      |
-| docker compose ps                      | lista serviços                                                            |
-| docker compose logs                    | mostra logs                                                               |
-| docker compose logs -f                 | acompanha logs em tempo real                                              |
-| docker compose build                   | constrói as imagens                                                       |
-| docker compose up --build              | sobe e recria imagens                                                     |
-| docker compose down -v                 | remove volumes                                                            |
-| docker compose rm                      | remove containers parados                                                 |
-| docker compose exec <serviço> bash     | entra no container                                                        |
-| docker compose run <serviço> <comando> | executa comando pontual                                                   |
+
+### Imagens
+| Comando                      | Descrição                              |
+| ---------------------------- | -------------------------------------- |
+| `docker images`              | Lista as imagens locais                |
+| `docker pull <imagem>`       | Baixa uma imagem de um registry        |
+| `docker build -t nome:tag .` | Cria uma imagem a partir do Dockerfile |
+| `docker rmi <imagem>`        | Remove uma imagem                      |
+| `docker image prune`         | Remove imagens não utilizadas          |
+
+### Containers
+| Comando                            | Descrição                            |
+| ---------------------------------- | ------------------------------------ |
+| `docker ps`                        | Lista containers em execução         |
+| `docker ps -a`                     | Lista todos os containers            |
+| `docker run <imagem>`              | Cria e executa um container          |
+| `docker start <container>`         | Inicia um container parado           |
+| `docker stop <container>`          | Para um container                    |
+| `docker restart <container>`       | Reinicia um container                |
+| `docker rm <container>`            | Remove um container                  |
+| `docker logs <container>`          | Exibe os logs do container           |
+| `docker exec -it <container> bash` | Acessa o terminal do container       |
+| `docker inspect <container>`       | Exibe detalhes do container          |
+| `docker container prune`           | Remove containers parados            |
+| `docker run -p 8080:8080 <imagem>` | Mapeia portas entre host e container |
+
+### Redes
+| Comando                        | Descrição             |
+| ------------------------------ | --------------------- |
+| `docker network ls`            | Lista as redes Docker |
+| `docker network create <nome>` | Cria uma nova rede    |
+
+### Volumes
+| Comando                                  | Descrição                    |
+| ---------------------------------------- | ---------------------------- |
+| `docker volume ls`                       | Lista os volumes Docker      |
+| `docker volume create <nome>`            | Cria um volume Docker        |
+| `docker run -v volume:/caminho <imagem>` | Monta um volume no container |
+
+### Limpeza e Manutenção
+| Comando                         | Descrição                                                                 |
+| ------------------------------- | ------------------------------------------------------------------------- |
+| `docker system prune`           | Remove containers parados, imagens não utilizadas, redes e cache de build |
+| `docker system prune -a`        | Remove todas as imagens não utilizadas, inclusive as sem referência       |
+| `docker system prune --volumes` | Remove recursos não utilizados, incluindo volumes                         |
+| `docker container prune`        | Remove containers parados                                                 |
+| `docker image prune`            | Remove imagens não utilizadas                                             |
+| `docker image prune -a`         | Remove todas as imagens não utilizadas                                    |
+| `docker volume prune`           | Remove volumes não utilizados                                             |
+| `docker network prune`          | Remove redes não utilizadas                                               |
+| `docker builder prune`          | Remove cache de build não utilizado                                       |
+| `docker builder prune -a`       | Remove todo o cache de build                                              |
+| `docker system df`              | Exibe o uso de espaço em disco pelo Docker                                |
+
+### Docker Compose
+| Comando                                  | Descrição                                  |
+| ---------------------------------------- | ------------------------------------------ |
+| `docker compose up`                      | Cria e inicia os serviços                  |
+| `docker compose up -d`                   | Inicia os serviços em background           |
+| `docker compose down`                    | Para e remove os serviços                  |
+| `docker compose start`                   | Inicia serviços parados                    |
+| `docker compose stop`                    | Para os serviços                           |
+| `docker compose restart`                 | Reinicia os serviços                       |
+| `docker compose ps`                      | Lista os serviços                          |
+| `docker compose logs`                    | Exibe os logs dos serviços                 |
+| `docker compose logs -f`                 | Acompanha os logs em tempo real            |
+| `docker compose build`                   | Constrói as imagens definidas no compose   |
+| `docker compose up --build`              | Reconstrói as imagens e inicia os serviços |
+| `docker compose down -v`                 | Remove serviços e volumes associados       |
+| `docker compose rm`                      | Remove containers parados                  |
+| `docker compose exec <serviço> bash`     | Acessa o terminal de um serviço            |
+| `docker compose run <serviço> <comando>` | Executa um comando pontual em um serviço   |
 
 ## Boas práticas
 1. Usar imagens oficiais
