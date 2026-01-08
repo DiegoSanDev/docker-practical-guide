@@ -1,4 +1,4 @@
-> **Em construção** — novos conteúdos serão adicionados gradualmente.
+> **Em construção** - novos conteúdos serão adicionados gradualmente.
 
 # Docker Practical Guide
 Guia prático de Docker com conceitos essenciais, comandos e boas práticas.
