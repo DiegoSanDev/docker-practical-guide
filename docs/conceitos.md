@@ -17,7 +17,36 @@ Docker é uma plataforma de containerização que permite empacotar uma aplicaç
     4. Executa a aplicação de fato.
 3. **Dockerfile**
     1. Arquivo com instruções para construir uma imagem Docker.
-    2. Definição de como a imagem é construida
+    2. Definição de como a imagem é construida 
+    3. Exemplo:
+        - ```dockerfile
+            FROM maven:3.9.9-eclipse-temurin-21 AS builder
+            WORKDIR /build
+            COPY pom.xml .
+            COPY src ./src
+            RUN mvn clean package -DskipTests
+
+            FROM eclipse-temurin:21-jre-alpine
+            WORKDIR /app
+
+            COPY --from=builder /build/target/*jar app.jar
+
+            EXPOSE 8080
+            ENTRYPOINT ["java", "-jar", "app.jar"] ```
+    4. Detalhamento:
+    - | Linha                                           | Comando   | Descrição                                                                             |
+      |-------------------------------------------------|---------  |------------------------ |             
+      |FROM maven:3.9.9-eclipse-temurin-21 AS builder   | FROM      | Define a imagem base com Maven e JDK 21 para a etapa de build (multi-stage).          |     
+      |WORKDIR /build                                   | WORKDIR   | Define o diretório de trabalho dentro do container para o processo de build.          |
+      |COPY pom.xml .                                   | COPY      | Copia o arquivo pom.xml para o container, permitindo o cache das dependências Maven.  |
+      |COPY src ./src                                   | COPY      | Copia o código-fonte da aplicação para o container.                                   |
+      |RUN mvn clean package -DskipTests                | RUN       | Executa o build, gerando o arquivo .jar e não executa os testes.                      |
+      |FROM eclipse-temurin:21-jre-alpine               | FROM      | Define a imagem de runtime com JRE 21, mais leve e ideal para produção.               |
+      |WORKDIR /app                                     | WORKDIR   | Define o diretório onde a aplicação será executada no container final.                |
+      |COPY --from=builder /build/target/*jar app.jar   | COPY      | Copia o .jar gerado na etapa de build para o container final.                         |
+      |EXPOSE 8080                                      | EXPOSE    | Documenta que a aplicação utiliza a porta 8080.                                       |
+      |ENTRYPOINT ["java", "-jar", "app.jar"]           | ENTRYPOINT| Define o comando principal para iniciar a aplicação Java.                             |
+      
 4. **Docker Compose**
     1. Docker Compose é uma ferramenta que permite definir e executar múltiplos containers de forma organizada, usando um único arquivo (docker-compose.yml).
     2. Descreve como os containers se relacionam (serviços, redes, volumes)
